@@ -1,0 +1,33 @@
+version: '3'
+services:
+  kafka:
+    image: confluentinc/cp-kafka:4.1.0
+    container_name: kafka
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: 172.24.0.2:2181
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092
+      KAFKA_AUTO_CREATE_TOPICS_ENABLE: 'true'
+      KAFKA_NUM_PARTITIONS: 101
+      KAFKA_COMPRESSION_TYPE: 'lz4'
+      KAFKA_UNCLEAN_LEADER_ELECTION_ENABLE: 'false'
+      KAFKA_LOG_CLEANER_ENABLE: 'true'
+      KAFKA_LOG_RETENTION_BYTES: 300000000000 
+      KAFKA_LOG_RETENTION_MS: 315360000000
+      KAFKA_OFFSETS_RETENTION_MINUTES: 6912000
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1      
+      KAFKA_MAX_CONNECTIONS_PER_IP: 1000
+      KAFKA_DELETE_TOPIC_ENABLE: 'true'
+      KAFKA_LOG4J_ROOT_LOGLEVEL: INFO
+      KAFKA_LOG4J_LOGGERS: "kafka.controller=INFO,state.change.logger=INFO"
+      KAFKA_TOOLS_LOG4J_LOGLEVEL: INFO
+      #KAFKA_JMX_HOSTNAME: 172.31.1.4
+      #KAFKA_JMX_PORT: 55429
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "20"
+    restart: always
+    volumes:
+      - ./data:/var/lib/kafka/data
