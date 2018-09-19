@@ -1,22 +1,59 @@
-version: '3'
+version: '2'
 services:
- cassandra-node1:
-   image: cassandra:latest
-   environment:
-     - CASSANDRA_CLUSTER_NAME=cassandra-cluster
-     - CASSANDRA_SEEDS=cassandra-node1,cassandra-node2
-     - CASSANDRA_PASSWORD_SEEDER=yes
-     - CASSANDRA_PASSWORD=password123
-   ports:
-     - 9042:9042
-     - 7199:7199
+  cassandra-node1:
+    image: cassandra:latest
+    environment:
+      - CASSANDRA_CLUSTER_NAME=cassandra-cluster
+      - CASSANDRA_SEEDS=cassandra-node1,cassandra-node2
+      - CASSANDRA_PASSWORD_SEEDER=yes
+      - CASSANDRA_PASSWORD=password123
+      - MAX_HEAP_SIZE=128M
+      - HEAP_NEWSIZE=24M
+    mem_limit: 2048MB
+    networks:
+      front:
+        ipv4_address: 192.168.66.91
+    ports:
+      - 9042:9042
+      - 7199:7199
 
- cassandra-node2:
-   image: cassandra:latest
-   environment:
-     - CASSANDRA_CLUSTER_NAME=cassandra-cluster
-     - CASSANDRA_SEEDS=cassandra-node1,cassandra-node2
-     - CASSANDRA_PASSWORD=password123
-   ports:
-     - 9043:9042
-     - 7200:7199
+  
+  cassandra-node2:
+    image: cassandra:latest
+    environment:
+      - CASSANDRA_CLUSTER_NAME=cassandra-cluster
+      - CASSANDRA_SEEDS=cassandra-node1,cassandra-node2
+      - CASSANDRA_PASSWORD=password123
+      - MAX_HEAP_SIZE=128M
+      - HEAP_NEWSIZE=24M
+    mem_limit: 2048MB
+    networks:
+      front:
+        ipv4_address: 192.168.66.92
+    ports:
+      - 9243:9042
+
+
+  cassandra-node3:
+    image: cassandra:latest
+    environment:
+      - CASSANDRA_CLUSTER_NAME=cassandra-cluster
+      - CASSANDRA_SEEDS=cassandra-node1,cassandra-node2
+      - CASSANDRA_PASSWORD=password123
+      - MAX_HEAP_SIZE=128M
+      - HEAP_NEWSIZE=24M
+    mem_limit: 2048MB
+    networks:
+      front:
+        ipv4_address: 192.168.66.93
+    ports:
+      - 9244:9042
+
+
+networks:
+    front:
+        driver: bridge
+        ipam:
+            driver: default
+            config:
+                - subnet: 192.168.66.0/24
