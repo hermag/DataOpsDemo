@@ -1,0 +1,32 @@
+---
+version: '3'
+services:
+  kafkazookeeper:
+    image: confluentinc/cp-zookeeper:4.1.0
+    container_name: zk4kafka
+    environment:
+      ZOOKEEPER_SERVER_ID: 1
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+      ZOOKEEPER_INIT_LIMIT: 10
+      ZOOKEEPER_SYNC_LIMIT: 5
+      ZOOKEEPER_AUTOPURGE_SNAP_RETAIN_COUNT: 5
+      ZOOKEEPER_AUTOPURGE_PURGE_INTERVAL: 2
+      #ZOOKEEPER_SERVERS: 172.31.1.4:55477:55478
+      ZOOKEEPER_LOG4J_ROOT_LOGLEVEL: INFO
+      #KAFKA_JMX_HOSTNAME: 172.31.1.4
+      KAFKA_JMX_PORT: 55479
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "20"
+    #networks:
+    #  - kafka 
+    restart: always
+    volumes:
+      - ./zookeeperdata/data:/var/lib/zookeeper/data
+      - ./zookeeperdata/log:/var/lib/zookeeper/log
+#networks:
+#  kafka:
+#    driver: bridge   
