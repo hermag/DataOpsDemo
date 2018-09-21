@@ -6,3 +6,13 @@ Before running the docker-compose up -d, one should create `kafka_net` the corre
 ```
 docker network create kafka_net --subnet=16.168.0.0/16
 ```
+
+#### Create topic.
+```
+docker exec singlenodekafkazookeeper_kafka_1 kafka-topics --create --zookeeper singlenodekafkazookeeper_zk1_1:2181 --replication-factor 1 --partitions 1 --topic test2
+```
+
+#### Check if topic has created.
+```
+docker exec singlenodekafkazookeeper_kafka_1 kafka-topics --describe --topic test2 --zookeeper singlenodekafkazookeeper_zk1_1:2181
+```
