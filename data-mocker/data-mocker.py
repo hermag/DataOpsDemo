@@ -17,10 +17,12 @@ def mock_the_data():
 
 if __name__=="__main__":
     #output_location = os.getcwd()
-    output_location = os.path.dirname(os.path.abspath( __file__ ))
+    #output_location = os.path.dirname(os.path.abspath( __file__ ))
+    output_location=""
     while True:
         output_file_name = datetime.datetime.strftime(datetime.datetime.now(),"%Y-%m-%dT%H_%M_%S.csv")
-        output_file = "%s/data/new/%s"%(output_location,output_file_name)
+        #output_file = "%s/data/new/%s"%(output_location,output_file_name)
+        output_file = "/data/new/%s"%(output_file_name)
         df = mock_the_data()
         df.to_csv(output_file)
         time.sleep(30)

@@ -1,0 +1,14 @@
+version: '3'
+services:
+  mocker:
+    build: .
+    volumes:
+     - ./data:/data
+    networks:
+     - kafka-net   
+
+networks:
+  kafka-net:
+    external:
+      name: kafka_net
+
