@@ -16,3 +16,9 @@ docker exec singlenodekafkazookeeper_kafka_1 kafka-topics --create --zookeeper s
 ```
 docker exec singlenodekafkazookeeper_kafka_1 kafka-topics --describe --topic test2 --zookeeper singlenodekafkazookeeper_zk1_1:2181
 ```
+
+#### Use kafka console consumer
+This command assumes that kafka is running as a docker container and it's name is singlenodekafkazookeeper_kafka_1, name of the zookeeper container is singlenodekafkazookeeper_zk1_1, the topic name is `test`.
+```
+docker exec singlenodekafkazookeeper_kafka_1 kafka-console-consumer --zookeeper singlenodekafkazookeeper_zk1_1:2181 --topic test
+``` 
