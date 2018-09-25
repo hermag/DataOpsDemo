@@ -9,16 +9,16 @@ docker network create kafka_net --subnet=16.168.0.0/16
 
 #### Create topic.
 ```
-docker exec singlenodekafkazookeeper_kafka_1 kafka-topics --create --zookeeper singlenodekafkazookeeper_zk1_1:2181 --replication-factor 1 --partitions 1 --topic test2
+docker exec singlenodekafkazk_kafka_1 kafka-topics --create --zookeeper singlenodekafkazk_zk1_1:2181 --replication-factor 1 --partitions 1 --topic test
 ```
 
 #### Check if topic has created.
 ```
-docker exec singlenodekafkazookeeper_kafka_1 kafka-topics --describe --topic test2 --zookeeper singlenodekafkazookeeper_zk1_1:2181
+docker exec singlenodekafkazk_kafka_1 kafka-topics --describe --topic test --zookeeper singlenodekafkazk_zk1_1:2181
 ```
 
 #### Use kafka console consumer
-This command assumes that kafka is running as a docker container and it's name is singlenodekafkazookeeper_kafka_1, name of the zookeeper container is singlenodekafkazookeeper_zk1_1, the topic name is `test`.
+This command assumes that kafka is running as a docker container and it's name is singlenodekafkazk_kafka_1, name of the zookeeper container is singlenodekafkazk_zk1_1, the topic name is `test`.
 ```
-docker exec singlenodekafkazookeeper_kafka_1 kafka-console-consumer --zookeeper singlenodekafkazookeeper_zk1_1:2181 --topic test
+docker exec singlenodekafkazk_kafka_1 kafka-console-consumer --zookeeper singlenodekafkazk_zk1_1:2181 --topic test
 ``` 
