@@ -1,0 +1,22 @@
+cd /nvme/CodeArea/DataOps/DataOpsDemo/docker-composes/cassandra
+
+#Show docker-compose config
+vim /nvme/CodeArea/DataOps/DataOpsDemo/docker-composes/cassandra/docker-compose.yml
+
+#Run containerized cassandra 
+docker-compose up -d
+
+#Attach to container
+docker exec -it <container ID> bash
+
+#Show cluster status
+nodetool status
+
+#create keyspace and table
+CREATE KEYSPACE test WITH replication = {'class': 'SimpleStrategy' , 'replication_factor': 2 };
+use test;
+CREATE TABLE ts (deviceuuid text,pointuuid text,time timestamp,value float,PRIMARY KEY ((deviceuuid), time)) WITH CLUSTERING ORDER BY (time ASC);
+SELECT * from ts;
+INSERT INTO ts (deviceuuid , time ) VALUES ( '001', '12') ;
+INSERT INTO ts (deviceuuid , time ) VALUES ( '002', '2018-09-26 12:12:12') ;
+SELECT & from ts;
